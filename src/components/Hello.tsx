@@ -6,9 +6,14 @@ export interface Props {
     enthusiasmLevel?: number;
 }
 
-class Hello extends React.Component<Props, object> {
+export interface DispatchProps {
+    onIncrement?: () => void;
+    onDecrement?: () => void;
+}
+
+class Hello extends React.Component<Props & DispatchProps, Object> {
     render() {
-        const { name, enthusiasmLevel = 1} = this.props;
+        const { name, enthusiasmLevel = 1, onDecrement, onIncrement } = this.props;
         if (enthusiasmLevel <= 0) {
             throw new Error('you could be a little more enthusiastic. :D');
         }
@@ -16,6 +21,10 @@ class Hello extends React.Component<Props, object> {
             <div className="hello">
                 <div className="greeting">
                     Hello {name  + this.getExclamationMarks(enthusiasmLevel)}
+                </div>
+                <div>
+                    <button onClick={onDecrement}>-</button>
+                    <button onClick={onIncrement}>+</button>
                 </div>
             </div>
 
